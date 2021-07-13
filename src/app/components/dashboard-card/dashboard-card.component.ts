@@ -8,19 +8,19 @@ import { Component, Input, OnInit } from '@angular/core';
 export class DashboardCardComponent implements OnInit {
 
   @Input('totalConfirmed')
-  totalConfirmed: number;
+  totalConfirmed: string;
   @Input('totalDeaths')
-  totalDeaths: number;
+  totalDeaths: string;
   @Input('totalActive')
-  totalActive: number;
+  totalActive: string;
   @Input('totalRecovered')
-  totalRecovered: number;
+  totalRecovered: string;
 
   constructor() {
-    this.totalConfirmed = 0;
-    this.totalDeaths = 0;
-    this.totalActive = 0;
-    this.totalRecovered = 0;
+    this.totalConfirmed = "0";
+    this.totalDeaths = "0";
+    this.totalActive = "0";
+    this.totalRecovered = "0";
   }
 
   ngOnInit(): void {

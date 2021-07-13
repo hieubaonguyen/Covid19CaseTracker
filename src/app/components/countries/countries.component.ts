@@ -14,10 +14,10 @@ import { map } from 'rxjs/operators';
 export class CountriesComponent implements OnInit {
   data: IGlobalDataSummary[] = [];
   countries: string[] = [];
-  totalConfirmed = 0;
-  totalActive = 0;
-  totalDeaths = 0;
-  totalRecovered = 0;
+  totalConfirmed: string = '0';
+  totalActive: string = '0';
+  totalDeaths: string = '0';
+  totalRecovered: string = '0';
   dateWiseData: any = [];
   selectedCountry: IDateWiseData[] = [];
   dataTable: any = [];
@@ -69,13 +69,13 @@ export class CountriesComponent implements OnInit {
 
     this.data.forEach((cs) => {
       if (cs.country == country) {
-        this.totalActive = cs.active;
-        this.totalDeaths = cs.deaths;
-        this.totalRecovered = cs.recovered;
-        this.totalConfirmed = cs.confirmed;
+        this.totalActive = new Intl.NumberFormat('de-DE').format(cs.active);
+        this.totalDeaths = new Intl.NumberFormat('de-DE').format(cs.deaths);
+        this.totalRecovered = new Intl.NumberFormat('de-DE').format(cs.recovered);
+        this.totalConfirmed = new Intl.NumberFormat('de-DE').format(cs.confirmed);
       }
     });
-    this.selectedCountry = this.dateWiseData[country];
+    this.selectedCountry = this.dateWiseData[country].reverse();
     this.updateChart();
   }
 

@@ -9,10 +9,10 @@ import { ChartType } from 'angular-google-charts';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  totalConfirmed = 0;
-  totalActive = 0;
-  totalDeaths = 0;
-  totalRecovered = 0;
+  totalConfirmed: string = '0';
+  totalActive: string = '0';
+  totalDeaths: string = '0';
+  totalRecovered: string = '0';
   globalData: IGlobalDataSummary[];
   dataTable: any = [];
   chart = {
@@ -57,21 +57,29 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.dataService.getGlobalData().subscribe({
-      next: (result) => {
+      next: (result: IGlobalDataSummary[]) => {
         this.globalData = result;
+        let tempTotalActive = 0;
+        let tempTotalConfirmed = 0;
+        let tempTotalDeaths = 0;
+        let tempTotalRecovered = 0;
         result.forEach((cs) => {
           if (!Number.isNaN(cs.confirmed)) {
-            this.totalActive += cs.active;
-            this.totalConfirmed += cs.confirmed;
-            this.totalDeaths += cs.deaths;
-            this.totalRecovered += cs.active;
+            tempTotalActive += cs.active;
+            tempTotalConfirmed += cs.confirmed;
+            tempTotalDeaths += cs.deaths;
+            tempTotalRecovered += cs.active;
           }
         });
+        this.totalActive = new Intl.NumberFormat('de-DE').format(tempTotalActive);
+        this.totalConfirmed = new Intl.NumberFormat('de-DE').format(tempTotalConfirmed);
+        this.totalDeaths = new Intl.NumberFormat('de-DE').format(tempTotalDeaths);
+        this.totalRecovered = new Intl.NumberFormat('de-DE').format(tempTotalRecovered);
         this.initChart('Confirmed');
       },
-      complete: () => (this.loading = false),
+      complete: () => (this.loading = false)
     });
   }
 
